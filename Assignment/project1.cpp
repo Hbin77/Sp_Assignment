@@ -98,6 +98,9 @@ void analyze_instruction(char *hex_code) {
         // Immediate: TA는 값 자체
         target_addr = disp_addr;
         strcat(addr_mode, ", immediate");
+    }else if (n == 0 && i == 0) {
+        target_addr = instruction & 0x7FFF;
+        strcat(addr_mode, ", direct (15-bit SIC)");
     } else if (e == 1) {
         // Format 4: direct addressing
         target_addr = disp_addr;
@@ -145,7 +148,12 @@ void analyze_instruction(char *hex_code) {
 
     // Disp/Addr 출력
     if (format == 3) {
-        printf("5. Disp/Addr:    %03X (12-bit)\n", disp_addr);
+        if (n == 0 && i == 0) {
+            int sic_addr = (instruction & 0x7FFF);  // 하위 15비트
+            printf("5. Disp/Addr:    %04X (15-bit, SIC mode)\n", sic_addr);
+        } else {
+            printf("5. Disp/Addr:    %03X (12-bit)\n", disp_addr);
+        }
     } else {
         printf("5. Disp/Addr:    %05X (20-bit)\n", disp_addr);
     }
