@@ -139,8 +139,8 @@ void analyze_instruction(char *hex_code) {
     }
 
     // 결과 출력
-    printf("\n=== SIC/XE Instruction Analysis ===\n");
-    printf("Input: %s\n\n", hex_code);
+    printf("\n========= SIC/XE 명령어 분석 =========\n");
+    printf("Hex 입력: %s\n\n", hex_code);
     printf("1. Binary code:  %s\n", binary);
     printf("2. Opcode:       %02X\n", opcode);
     printf("3. Flag bits:    n=%d i=%d x=%d b=%d p=%d e=%d\n", n, i, x, b, p, e);
@@ -158,13 +158,13 @@ void analyze_instruction(char *hex_code) {
         printf("5. Disp/Addr:    %05X (20-bit)\n", disp_addr);
     }
 
-    printf("6. TA:           0x%04X\n", target_addr);
-    printf("7. Register A:   0x%06X\n", reg_a_value);
+    printf("6. Target Address:           0x%04X\n", target_addr);
+    printf("7. Register A value:   0x%06X\n", reg_a_value);
     printf("===================================\n");
 }
 
 int main() {
-    printf("SIC/XE Object Code Parser\n");
+    printf("목적 코드 생성을 위한 I/O 파서 구현\n");
     printf("==========================\n\n");
 
     // 메모리 초기화
@@ -192,7 +192,7 @@ int main() {
     // 사용자가 직접 입력
     char input[20];
     while (1) {
-        printf("\nEnter hex code (or 'exit'): ");
+        printf("\nHex 입력 (나가려면 'exit'): ");
         scanf("%s", input);
         if (strcmp(input, "exit") == 0) break;
         analyze_instruction(input);
