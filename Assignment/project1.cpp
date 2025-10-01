@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// 전역 변수
+// 전역 변수 (레지스터 값)
 int PC = 0x003000;     // 프로그램 카운터
 int BASE = 0x006000;   // 베이스 레지스터
 int X_REG = 0x000090;  // 인덱스 레지스터
@@ -158,7 +158,7 @@ void analyze_instruction(char *hex_code) {
         printf("5. Disp/Addr:    %05X (20-bit)\n", disp_addr);
     }
 
-    printf("6. Target Address:           0x%04X\n", target_addr);
+    printf("6. Target Address:     0x%04X\n", target_addr);
     printf("7. Register A value:   0x%06X\n", reg_a_value);
     printf("===================================\n");
 }
