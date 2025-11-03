@@ -173,27 +173,42 @@ void print_output(void) {
     int opcode;
 
     for (i = 0; i < token_line; i++) {
-        // label
+        // label (8칸 고정)
         if (token_table[i]->label != NULL) {
             printf("%-8s", token_table[i]->label);
         } else {
-            printf("        ");  // 8칸
+            printf("        ");  // 8칸 공백
         }
 
-        // operator
+        // 탭 추가
+        printf("\t");
+
+        // operator (8칸 고정)
         if (token_table[i]->operation != NULL) {
             printf("%-8s", token_table[i]->operation);
+        } else {
+            printf("        ");  // 8칸 공백
         }
 
+        // 탭 추가
+        printf("\t");
+
         // operand
+        int has_operand = 0;
         for (j = 0; j < MAX_OPERAND; j++) {
             if (token_table[i]->operand[j][0] != '\0') {
                 if (j > 0) printf(",");
                 printf("%s", token_table[i]->operand[j]);
+                has_operand = 1;
             }
         }
 
-        // opcode (hex)
+        // operand가 없으면 공백 추가
+        if (!has_operand) {
+            printf("        ");  // 8칸 공백
+        }
+
+        // opcode (hex 2자리)
         if (token_table[i]->operation != NULL) {
             opcode = search_opcode(token_table[i]->operation);
             if (opcode >= 0) {
