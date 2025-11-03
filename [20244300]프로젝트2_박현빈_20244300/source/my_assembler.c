@@ -1,16 +1,10 @@
-/*
- * my_assembler.c
- * 시스템 프로그래밍 프로젝트 #2
- * SIC 어셈블러 파서 - 구현 파일
- */
-
 #include "my_assembler.h"
 
 /* 전역 변수 정의 */
 
 // 어셈블리 할 소스코드를 파일로부터 불러와 라인별로 관리하는 테이블 생성
 char *input_data[MAX_LINES];
-int line_num = 0;
+static int line_num = 0;
 
 // 어셈블리 할 소스코드를 5000라인까지 관리하는 테이블 생성
 token *token_table[MAX_LINES];
@@ -133,7 +127,7 @@ void token_parsing(void) {
 
     token_line = 0;
 
-    // 각 입력 라인 처리
+    // 각 입력 처리
     for (i = 0; i < line_num; i++) {
         // 빈 라인이나 주석 라인은 건너뛰기
         if (input_data[i][0] == '\0' || input_data[i][0] == '.') {
@@ -145,7 +139,7 @@ void token_parsing(void) {
 
         // 초기화
         token_table[token_line]->label = NULL;
-        token_table[token_line]->operation = NULL;
+        token_table[token_line]->operator = NULL;
         for (j = 0; j < MAX_OPERAND; j++) {
             token_table[token_line]->operand[j][0] = '\0';
         }
@@ -178,8 +172,8 @@ void token_parsing(void) {
 
         // Operator 파싱
         if (token_ptr != NULL && token_ptr[0] != '.') {
-            token_table[token_line]->operation = (char *)malloc(strlen(token_ptr) + 1);
-            strcpy(token_table[token_line]->operation, token_ptr);
+            token_table[token_line]->operator = (char *)malloc(strlen(token_ptr) + 1);
+            strcpy(token_table[token_line]->operator, token_ptr);
         }
 
         // Operand 파싱 (콤마로 구분)
@@ -231,8 +225,8 @@ void print_output(void) {
         }
 
         // Operator 출력 (8칸)
-        if (token_table[i]->operation != NULL) {
-            printf("%-8s", token_table[i]->operation);
+        if (token_table[i]->operator != NULL) {
+            printf("%-8s", token_table[i]->operator);
         }
 
         // Operand 출력 (콤마로 연결)
@@ -246,8 +240,8 @@ void print_output(void) {
         }
 
         // OPCODE 출력 (16진수 2자리)
-        if (token_table[i]->operation != NULL) {
-            opcode = search_opcode(token_table[i]->operation);
+        if (token_table[i]->operator != NULL) {
+            opcode = search_opcode(token_table[i]->operator);
             if (opcode >= 0) {
                 printf("\t\t%02X", opcode);
             }

@@ -20,12 +20,11 @@
 
 // 어셈블리 할 소스코드를 파일로부터 불러와 라인별로 관리하는 테이블 생성
 extern char *input_data[MAX_LINES];
-extern int line_num;
 
 // 어셈블리 할 라인 별 소스코드를 토큰 단위로 관리하기 위한 구조체 변수
 struct token_unit {
     char *label;                    // 명령어 라인 중 label
-    char *operation;                // 명령어 라인 중 operator
+    char *operator;                 // 명령어 라인 중 operator
     char operand[MAX_OPERAND][20];  // 명령어 라인 중 operand
     char comment[100];              // 명령어 라인 중 comment
 };
