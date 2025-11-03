@@ -1,6 +1,3 @@
-// my_assembler.h
-// 시스템프로그래밍 프로젝트2 - SIC 어셈블러 파서
-
 #ifndef MY_ASSEMBLER_H
 #define MY_ASSEMBLER_H
 
@@ -20,7 +17,7 @@ extern int line_num;
 // 토큰 구조체
 struct token_unit {
     char *label;
-    char *operation;
+    char *operator;
     char operand[MAX_OPERAND][20];
     char comment[100];
 };

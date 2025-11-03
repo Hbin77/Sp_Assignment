@@ -1,6 +1,3 @@
-// main.c
-// 시스템프로그래밍 프로젝트2
-
 #include "my_assembler.h"
 
 int main(int argc, char *argv[]) {

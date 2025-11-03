@@ -1,6 +1,3 @@
-// my_assembler.c
-// 시스템프로그래밍 프로젝트2 - 구현부
-
 #include "my_assembler.h"
 
 // 전역 변수 선언
@@ -105,7 +102,7 @@ void token_parsing(void) {
 
         // 초기화
         token_table[token_line]->label = NULL;
-        token_table[token_line]->operation = NULL;
+        token_table[token_line]->operator = NULL;
         for (j = 0; j < MAX_OPERAND; j++) {
             token_table[token_line]->operand[j][0] = '\0';
         }
@@ -133,10 +130,10 @@ void token_parsing(void) {
             token_ptr = strtok(line_copy, " \t");
         }
 
-        // operation 파싱
+        // operator 파싱
         if (token_ptr != NULL && token_ptr[0] != '.') {
-            token_table[token_line]->operation = (char *)malloc(strlen(token_ptr) + 1);
-            strcpy(token_table[token_line]->operation, token_ptr);
+            token_table[token_line]->operator = (char *)malloc(strlen(token_ptr) + 1);
+            strcpy(token_table[token_line]->operator, token_ptr);
         }
 
         // operand 파싱 (콤마로 구분)
@@ -184,8 +181,8 @@ void print_output(void) {
         printf("\t");
 
         // operator (8칸 고정)
-        if (token_table[i]->operation != NULL) {
-            printf("%-8s", token_table[i]->operation);
+        if (token_table[i]->operator != NULL) {
+            printf("%-8s", token_table[i]->operator);
         } else {
             printf("        ");  // 8칸 공백
         }
@@ -209,8 +206,8 @@ void print_output(void) {
         }
 
         // opcode (hex 2자리)
-        if (token_table[i]->operation != NULL) {
-            opcode = search_opcode(token_table[i]->operation);
+        if (token_table[i]->operator != NULL) {
+            opcode = search_opcode(token_table[i]->operator);
             if (opcode >= 0) {
                 printf("\t\t%02X", opcode);
             }
